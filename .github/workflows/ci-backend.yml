@@ -1,0 +1,25 @@
+name: Backend CI (Spring Boot)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Descargar el código
+      uses: actions/checkout@v4
+
+    - name: 2. Configurar Java 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: 3. Compilar y ejecutar Tests
+      run: mvn clean verify
